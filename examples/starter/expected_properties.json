@@ -1,0 +1,16 @@
+{
+  "must_include_sections": [
+    "診斷",
+    "學習計畫",
+    "講義",
+    "審查",
+    "腳本",
+    "VERIFY_REPORT",
+    "ASR_REPORT"
+  ],
+  "must_not_include": [
+    "TODO",
+    "待補"
+  ],
+  "minimum_use_cases": 1
+}

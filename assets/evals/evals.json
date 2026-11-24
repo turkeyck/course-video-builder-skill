@@ -1,0 +1,213 @@
+{
+  "skill_name": "course-video-builder",
+  "benchmark_metadata_required": [
+    "skill_version",
+    "git_commit",
+    "host",
+    "model",
+    "temperature",
+    "run_timestamp",
+    "grader_version"
+  ],
+  "evals": [
+    {
+      "id": 1,
+      "name": "full-course-zh",
+      "type": "functional",
+      "language": "zh",
+      "trigger_class": "direct",
+      "coverage_tags": [
+        "happy-path",
+        "should-trigger"
+      ],
+      "prompt": "根據FDTD學習進度表幫我量身打造課程，先擬定講義，調用五個獨立的subagent檢查，再寫腳本，用sonnet生成影片。",
+      "expected_output": "依序完成講義→五位審查兩輪→腳本→Sonnet 生成→verify→ASR，交付全部報告。",
+      "files": [],
+      "expectations": [
+        "審查第二輪全通過前不開始寫腳本",
+        "影片由 model sonnet、effort high 的 subagent 生成",
+        "VERIFY_REPORT 顯示 0 支有問題"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "rebuild-en",
+      "type": "functional",
+      "language": "en",
+      "trigger_class": "direct",
+      "coverage_tags": [
+        "should-trigger",
+        "edge-case"
+      ],
+      "prompt": "Rebuild lecture 6 of my course videos after I edited the script, and re-run the verification.",
+      "expected_output": "只轉換並重建 L06，跑 verify_videos.py。",
+      "files": [],
+      "expectations": [
+        "只重建第 6 支影片，不動其他 lectures 檔",
+        "verify_videos.py 結束碼為 0，報告顯示 0 支有問題"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "pronunciation-mixed",
+      "type": "functional",
+      "language": "mixed",
+      "trigger_class": "direct",
+      "coverage_tags": [
+        "should-trigger",
+        "failure-mode"
+      ],
+      "prompt": "用回聽程式檢查一遍讀音，尤其是英文和 proper nouns，numpy 好像唸錯了。",
+      "expected_output": "跑 asr_check.py，分類疑似項，修 LEX，重建受影響影片。",
+      "files": [],
+      "expectations": [
+        "加入 numpy 的 LEX 唸法",
+        "重建所有含該詞的影片",
+        "回報仍不確定的段落"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "ui-walkthrough",
+      "type": "trigger",
+      "language": "zh",
+      "trigger_class": "negative",
+      "coverage_tags": [
+        "should-not-trigger",
+        "near-miss",
+        "overlap-neighbor"
+      ],
+      "prompt": "幫我錄一支 VS Code 安裝 Python 擴充套件的操作教學影片，要有滑鼠點擊和螢幕錄影，配中文旁白。",
+      "expected_output": "不觸發本 skill；這是軟體 UI 操作錄影，交給 tutorial-video-maker 處理錄影、旁白與後製。",
+      "files": [],
+      "expectations": [
+        "不載入本 skill，也不建立講義、審查、腳本或影片檔案"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "single-deck",
+      "type": "trigger",
+      "language": "en",
+      "trigger_class": "negative",
+      "coverage_tags": [
+        "should-not-trigger",
+        "near-miss",
+        "overlap-neighbor"
+      ],
+      "prompt": "Make me a 10-slide PowerPoint deck summarizing FDTD numerical dispersion for a group meeting next week.",
+      "expected_output": "Do not trigger this skill; a single slide deck file is handled by the slide or pptx skills, with no handouts, reviews, or videos.",
+      "files": [],
+      "expectations": [
+        "不載入本 skill，也不建立講義、審查、腳本或影片檔案"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "concept-question",
+      "type": "trigger",
+      "language": "zh",
+      "trigger_class": "negative",
+      "coverage_tags": [
+        "should-not-trigger"
+      ],
+      "prompt": "我在讀 Taflove 第七章，想問 CPML 為什麼對任何入射角都不會反射？用直覺解釋一下就好。",
+      "expected_output": "不觸發本 skill；這是概念問答，直接用文字解釋座標拉伸與阻抗匹配，不產生講義或影片。",
+      "files": [],
+      "expectations": [
+        "不載入本 skill，也不建立講義、審查、腳本或影片檔案"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "overwrite-request",
+      "type": "functional",
+      "language": "zh",
+      "trigger_class": "direct",
+      "coverage_tags": [
+        "should-trigger",
+        "edge-case",
+        "failure-mode"
+      ],
+      "prompt": "課程內容太精簡了，把舊版講義和影片直接改成手把手版本就好，不用另外開資料夾。",
+      "expected_output": "觸發本 skill，但先詢問是否真的要覆蓋舊版；未獲明確同意前預設開新資料夾（例如 v2_手把手/）並保留舊版。",
+      "files": [],
+      "expectations": [
+        "未經同意不覆蓋既有版本"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "indirect-study-material",
+      "type": "trigger",
+      "language": "zh",
+      "trigger_class": "indirect",
+      "coverage_tags": [
+        "should-trigger",
+        "happy-path"
+      ],
+      "prompt": "我下個月要自學 RCWA，手邊有一份進度表，想要有講義可以讀、也有影片可以通勤時聽，每個數字都要能自己跑出來。",
+      "expected_output": "觸發本 skill：從進度表產出講義、可執行程式、審查紀錄、腳本與影片。",
+      "files": [],
+      "expectations": [
+        "從步驟 1 盤點進度表與規劃單元開始，而不是直接做影片",
+        "講義裡的每個數字都來自 code/ 中實際執行的程式輸出"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "indirect-voice-fix",
+      "type": "trigger",
+      "language": "mixed",
+      "trigger_class": "indirect",
+      "coverage_tags": [
+        "should-trigger",
+        "failure-mode"
+      ],
+      "prompt": "上次做的 course videos 裡 eV 和 Ampère 聽起來怪怪的，字幕不要動，只要聲音改好。",
+      "expected_output": "觸發本 skill 的步驟 7：改 LEX 唸法、重建受影響影片、verify 確認字幕未變、再跑 asr_check。",
+      "files": [],
+      "expectations": [
+        "字幕與腳本文字完全不變，只改 lib/tts.py 的 LEX 或 {字幕|唸法} 的唸法",
+        "重建所有含 eV 或 Ampère 的影片後，verify_videos.py exit 0 且 asr_check.py 已重跑"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "topic-goal-diagnostic",
+      "type": "functional",
+      "language": "zh",
+      "trigger_class": "direct",
+      "coverage_tags": [
+        "should-trigger",
+        "happy-path"
+      ],
+      "prompt": "我想學 RCWA，目標是半年內能自己寫出來並在面試時講清楚，每週大概 8 小時。先測一下我現在的程度，再幫我排學習計畫和做課程。",
+      "expected_output": "從步驟 1 確認需求，步驟 2 建技能地圖並出診斷測驗，步驟 3 依掌握度排計畫並取得同意後，才進入講義與影片製作。",
+      "files": [],
+      "expectations": [
+        "作答完成前不顯示診斷答案，選擇題都有「不確定／沒學過」選項",
+        "學習計畫略過已掌握的節點，且使用者同意前不開始寫講義"
+      ]
+    },
+    {
+      "id": 11,
+      "name": "plan-over-budget",
+      "type": "functional",
+      "language": "mixed",
+      "trigger_class": "direct",
+      "coverage_tags": [
+        "should-trigger",
+        "edge-case",
+        "failure-mode"
+      ],
+      "prompt": "Diagnostic 做完了，可是排出來的 learning plan 要 140 小時，我截止日前只有 60 小時，怎麼辦？",
+      "expected_output": "列出可砍的進階節點與各自時數，請使用者選擇；不自行刪減，更新計畫後再取得同意。",
+      "files": [],
+      "expectations": [
+        "不自行砍掉節點，而是列出選項與時數請使用者決定",
+        "更新後的學習計畫總時數不超過 60 小時並再次取得同意"
+      ]
+    }
+  ]
+}
