@@ -1,6 +1,6 @@
 # course-video-builder-skill
 
-A self-learning video builder tailored for each curious mind.
+A personalized self-study course builder for every curious mind.
 
 A Claude Code skill that turns "I want to learn X for goal Y" into a personal course: a diagnostic quiz, a learning plan built from the results, hand-holding handouts with runnable code, five independent reviewers, and narrated lecture videos (slides + Mandarin TTS + subtitles), all checked by machine before delivery.
 
