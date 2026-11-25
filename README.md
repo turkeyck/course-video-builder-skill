@@ -14,7 +14,7 @@ A Claude Code skill that turns "I want to learn X for goal Y" into a personal co
 2. **排學習計畫**：只排你缺的和半懂的，依前置關係排序、配合你每週的時間，每週一個可驗收的成果。你同意後才開始做課程。
 3. **寫手把手講義**：每一步都有程式碼、逐行解釋、執行指令和**實際跑出來的輸出**，加上常見錯誤和附解答的練習。
 4. **五位獨立審查**：數字、物理推導、程式、教學設計、引用一致性，各由一個 subagent 審查，修正後再確認一輪。
-5. **做教學影片**：每支先寫大綱和腳本，再由 Sonnet subagent 轉成投影片影片（KaTeX 公式、逐段出現、曉臻 TTS 旁白、內嵌字幕）。
+5. **做教學影片**：先請你選篇幅（完整版講完講義全部內容／主線版只講重點／兩者都做），每支先寫大綱和腳本，再由 Sonnet subagent 轉成投影片影片（KaTeX 公式、逐段出現、曉臻 TTS 旁白、內嵌字幕）。
 6. **機器驗收**：檢查每支影片的格式和音畫同步、旁白和腳本逐段一致、用語音辨識回聽英文與專有名詞的讀音。
 7. **結業後測**：用同一份技能地圖出平行題，比較學習前後的掌握度。
 
@@ -78,11 +78,13 @@ references/
   diagnostic-and-plan.md     # 診斷測驗與學習計畫
   handout-and-review.md      # 講義結構與五位審查分工
   script-format.md           # 影片腳本格式
+  video-scope.md             # 影片篇幅的選項與完整版流程
   render-and-qa.md           # 管線設置、派 Sonnet 生成、驗收
   pronunciation-check.md     # 讀音回聽與讀音表
   readiness_report.md        # skill 檢查紀錄
 assets/
   pipeline/                  # 影片管線（複製到課程的 course_videos/ 使用）
+  pipeline_full/             # 完整版疊加包（腳本轉換、講義涵蓋檢查、自動分頁）
   evals/                     # 觸發與功能測試案例
 examples/ schemas/ policies/ skill_lifecycle.yaml   # skill 維護用的範例與規格
 ```

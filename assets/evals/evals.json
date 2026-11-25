@@ -208,6 +208,43 @@
         "不自行砍掉節點，而是列出選項與時數請使用者決定",
         "更新後的學習計畫總時數不超過 60 小時並再次取得同意"
       ]
+    },
+    {
+      "id": 12,
+      "name": "video-scope-choice",
+      "type": "functional",
+      "language": "zh",
+      "trigger_class": "direct",
+      "coverage_tags": [
+        "should-trigger",
+        "happy-path"
+      ],
+      "prompt": "這是我的學習進度表，不用診斷，直接幫我做講義和影片。",
+      "expected_output": "步驟 4 先請使用者選影片篇幅（完整版／主線版／兩者都做），附上估計支數與時間，選定後寫進 計畫/需求.md。",
+      "files": [],
+      "expectations": [
+        "沒有替使用者決定影片篇幅",
+        "選項同時有完整版、主線版、兩者都做"
+      ]
+    },
+    {
+      "id": 13,
+      "name": "video-scope-already-stated",
+      "type": "functional",
+      "language": "zh",
+      "trigger_class": "direct",
+      "coverage_tags": [
+        "should-trigger",
+        "edge-case"
+      ],
+      "prompt": "影片內容不應該是講義的精簡版，應該是完整版。",
+      "expected_output": "視為已選完整版，不再問篇幅；舊影片保留，在 course_videos_full/ 重做，compile.py 缺 0 後才生成。",
+      "files": [],
+      "expectations": [
+        "不重複詢問影片篇幅",
+        "不覆蓋 course_videos/",
+        "涵蓋檢查缺 0 才生成影片"
+      ]
     }
   ]
 }
