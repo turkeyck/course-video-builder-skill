@@ -23,7 +23,9 @@
 4. Python 套件：`edge-tts playwright av numpy pillow imageio-ffmpeg soundfile sherpa-onnx`；Playwright 用系統 Edge。
 5. 建 `scripts/`、`build/figs/`（講義的圖複製進來給 `IMG(name)` 用）。
 
-## 派 Sonnet 生成
+選完整版時，資料夾用 `course_videos_full/`，再把 `assets/pipeline_full/` 疊上去（蓋過 `lib/render.py`），見 [影片篇幅](video-scope.md)。
+
+## 派 Sonnet 生成（主線版）
 
 - 用 Agent 工具，`model: "sonnet"`、`effort: "high"`，在同一則訊息平行派 3–5 個，每個負責 3–4 支（不要兩個 agent 同時寫同一支 `Lxx.py`；`lib/` 誰都不准改，有需要回報給主 agent）。
 - brief 內容：

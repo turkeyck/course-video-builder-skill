@@ -46,17 +46,18 @@ Successful output:
 - **順序固定**：講義 → 五位獨立審查（含第二輪確認）→ 每支影片先寫大綱與腳本 → 才生成影片。審查未通過不得開始做影片。
 - **數字必須實際跑過**：講義與旁白的每個數字都來自 `code/` 實際輸出；計時類數字註明和機器有關。
 - **手把手**：起點以診斷結果為準，不假設測驗沒證明會的東西（例如 C／CUDA）；每步有程式碼、逐行解釋、執行指令、實際輸出、常見錯誤、附解答練習。
+- **影片篇幅由使用者選**：完整版、主線版或兩者都做，寫在 `計畫/需求.md` 的「影片篇幅」；不替使用者決定，沒選好不得進步驟 7。選項與問法見 [影片篇幅](references/video-scope.md)。
 - **聲音只用曉臻**（`zh-TW-HsiaoChenNeural`，rate −6%）；英文、縮寫、人名、希臘字母一律唸英文，不用中文音譯。
 - **不 commit／push**，除非使用者明確同意。
 
 <workflow>
-入口：只給主題與目標 → 從步驟 1 開始；已有進度表 → 先問要不要做診斷（不要就從步驟 4 開始）；重建影片或修讀音 → 直接跳到步驟 8–10。
+入口：只給主題與目標 → 從步驟 1 開始；已有進度表 → 先問要不要做診斷（不要就從步驟 4 開始），並問影片篇幅；重建影片或修讀音 → 直接跳到步驟 8–10。
 
 步驟 1：確認主題與目標
-- 動作：依 [診斷與計畫指南](references/diagnostic-and-plan.md) 第 A 節一次問完主題、目標、終點的樣子、每週時數與截止日、自述背景、手邊資源；主題太大時先請使用者收斂。
+- 動作：依 [診斷與計畫指南](references/diagnostic-and-plan.md) 第 A 節一次問完主題、目標、終點的樣子、每週時數與截止日、自述背景、手邊資源、影片篇幅；主題太大時先請使用者收斂。
 - 輸入：使用者的請求。
 - 輸出：`計畫/需求.md`。
-- 驗證：目標可驗收（寫得出「會了」的樣子）；時間預算有數字。
+- 驗證：目標可驗收（寫得出「會了」的樣子）；時間預算有數字；影片篇幅已由使用者選定（或註明步驟 7 之前再問）。
 
 步驟 2：技能地圖與診斷測驗
 - 動作：依指南第 B、C 節把主題拆成 10–20 個技能節點（含前置），每節點出 1–2 題（選擇題附「不確定／沒學過」、簡答、讀程式、計算），自適應施測，評 0／1／2 分並算出每個節點的掌握度。
@@ -71,10 +72,10 @@ Successful output:
 - 驗證：每週都對應到診斷的缺口；總時數不超過使用者的時間（超過就請使用者選要砍的節點）；**使用者明確同意**才進步驟 4。
 
 步驟 4：盤點與規劃
-- 動作：讀學習計畫（步驟 3）或使用者給的進度表，以及既有版本，決定單元、時數、檔案位置與影片切分（每支約 4–8 分鐘，一單元可拆上下）。
+- 動作：讀學習計畫（步驟 3）或使用者給的進度表，以及既有版本，決定單元、時數、檔案位置與影片切分。`計畫/需求.md` 還沒有影片篇幅就先問，再依 [影片篇幅](references/video-scope.md) 決定支數與資料夾（主線版 `course_videos/`、完整版 `course_videos_full/`）。
 - 輸入：`計畫/學習計畫.md` 或進度表、使用者要求、既有資料夾。
 - 輸出：課程總覽草稿（逐週對照表）、新資料夾。
-- 驗證：舊版路徑不在寫入清單內；時數總和與進度表一致。
+- 驗證：舊版路徑不在寫入清單內；時數總和與進度表一致；影片篇幅是使用者選的。
 
 步驟 5：寫講義與可執行程式
 - 動作：依 [講義與審查指南](references/handout-and-review.md) 的單元結構寫講義，每段程式放進 `code/` 並實際執行，把真實輸出貼回講義。
@@ -89,16 +90,16 @@ Successful output:
 - 驗證：五位第二輪皆「通過」才進步驟 7；任何一位有未解錯誤 → 回步驟 5。
 
 步驟 7：大綱與腳本
-- 動作：每支影片寫一份 `scripts/Vxx_代號.md`，格式見 [腳本格式](references/script-format.md)：大綱、每頁 kicker、旁白（逐段）、畫面元素。
+- 動作：每支影片寫一份 `scripts/Vxx_代號.md`，格式見 [腳本格式](references/script-format.md)：大綱、每頁 kicker、旁白（逐段）、畫面元素。完整版改用 [影片篇幅](references/video-scope.md) 的引用格式。
 - 輸入：審查通過的講義。
-- 輸出：`course_videos/scripts/V00…Vnn.md`。
-- 驗證：每段旁白都有講義出處；數字和講義一致；英文詞已想好唸法（必要時用 `{字幕|唸法}`）。
+- 輸出：`scripts/V00…Vnn.md`（主線版在 `course_videos/`，完整版在 `course_videos_full/`）。
+- 驗證：每段旁白都有講義出處；數字和講義一致；英文詞已想好唸法（必要時用 `{字幕|唸法}`；完整版改 `LEX`）。完整版另外要求 `python compile.py` 每週「缺 0」、exit 0，且兩位獨立審查第二輪通過。
 
 步驟 8：用 Sonnet 生成影片
-- 動作：把 [pipeline 範本](assets/pipeline/) 複製到 `course_videos/`，改 `lib/render.py` 的 `COURSE`，在 `tools/` 執行 `npm i`；再依 [生成與驗收指南](references/render-and-qa.md) 派 Sonnet（`model: sonnet`，`effort: high`）subagent，每個負責幾支，把腳本轉成 `lectures/Lxx.py` 並執行 `python make.py N`。
+- 動作：把 [pipeline 範本](assets/pipeline/) 複製到 `course_videos/`，改 `lib/render.py` 的 `COURSE`，在 `tools/` 執行 `npm i`；再依 [生成與驗收指南](references/render-and-qa.md) 派 Sonnet（`model: sonnet`，`effort: high`）subagent，每個負責幾支，把腳本轉成 `lectures/Lxx.py` 並執行 `python make.py N`。完整版由 `compile.py` 機械轉換，不派 subagent 轉寫，支數多時分批在背景執行 `make.py`。
 - 輸入：腳本、管線。
 - 輸出：`out/Lxx_*.mp4`、`_qa.json`、`qa/*_slides.png`。
-- 驗證：每支 `qa.pass` 為 true（h264＋aac＋1 條字幕、音畫差 ≤ 500 ms、無 overflow）；人工看 `qa/*_slides.png` 的手寫 `RAW` 區塊。
+- 驗證：每支 `qa.pass` 為 true（h264＋aac＋1 條字幕、音畫差 ≤ 500 ms、無 overflow）；人工看 `qa/*_slides.png` 的手寫 `RAW` 區塊；完整版還要看每頁最後的樣子。
 
 步驟 9：旁白比對與總驗收
 - 動作：執行 `python verify_videos.py`。
@@ -127,7 +128,7 @@ Successful output:
 
 <default_follow_through_policy>
 - 直接執行：出診斷題、評分、草擬學習計畫、寫講義與程式、跑程式、派審查與生成 subagent、建置影片、跑 verify 與 ASR、修讀音表。
-- 先詢問：學習計畫定稿（必須取得同意）、計畫總時數超出預算時要砍哪些節點、安裝新的大型工具鏈（CUDA、VS）、覆蓋或刪除既有版本、commit／push。
+- 先詢問：影片篇幅（完整版／主線版／兩者；使用者已說明就不再問）、學習計畫定稿（必須取得同意）、計畫總時數超出預算時要砍哪些節點、安裝新的大型工具鏈（CUDA、VS）、覆蓋或刪除既有版本、commit／push。
 - 停止並回報：審查第二輪仍有錯誤、QA 或 verify 失敗且原因不明、TTS 網路持續失敗。
 </default_follow_through_policy>
 
@@ -138,6 +139,9 @@ Successful output:
 輸入：根據 FDTD 學習進度表幫我做課程，先講義、五個 subagent 審查，再寫腳本，用 Sonnet 做影片。
 輸出：先問要不要做診斷；不要就從步驟 4 開始，依序完成到步驟 11；交付講義、審查紀錄、15 份腳本、15 支通過 QA 的影片與兩份驗收報告。
 
+輸入：影片內容不應該是講義的精簡版，應該是完整版。
+輸出：視為已選完整版，不再問；舊影片保留，在 `course_videos_full/` 從步驟 7 重寫腳本，`compile.py` 缺 0 後才生成。
+
 輸入：第 6 支影片 Mur 唸得怪，幫我修。
 輸出：只跑步驟 10：查 ASR_REPORT 的 L06，加 `LEX` 或 `{Mur|…}`，`python make.py 6`，再跑 verify 與 `asr_check.py 6`。
 </examples>
@@ -146,6 +150,7 @@ Successful output:
 
 - 入口：[make.py](assets/pipeline/make.py)、[verify_videos.py](assets/pipeline/verify_videos.py)、[asr_check.py](assets/pipeline/asr_check.py)。
 - 函式庫：[lib/spec.py](assets/pipeline/lib/spec.py)（lecture 詞彙）、[lib/render.py](assets/pipeline/lib/render.py)（投影片）、[lib/tts.py](assets/pipeline/lib/tts.py)（曉臻＋`LEX`）、[lib/assemble.py](assets/pipeline/lib/assemble.py)（合成＋QA）、[lib/handout.py](assets/pipeline/lib/handout.py)、[lib/__init__.py](assets/pipeline/lib/__init__.py)、[lectures/__init__.py](assets/pipeline/lectures/__init__.py)。
+- 完整版疊加包（選完整版才用，複製後蓋過同名檔）：[units.py](assets/pipeline_full/units.py)、[compile.py](assets/pipeline_full/compile.py)、[layout_check.py](assets/pipeline_full/layout_check.py)、[lib/render.py](assets/pipeline_full/lib/render.py)。
 - KaTeX 依賴：[tools/package.json](assets/pipeline/tools/package.json)。
 - 只有改名、合併、拆分或淘汰本 skill 時，才依 [migration governance](references/migration-governance.md) 處理。
 
@@ -155,7 +160,8 @@ Successful output:
 python make.py 3 4          # 重建第 3、4 支（TTS 與畫面有快取）
 python make.py 3 --force    # 強制重做畫面片段
 python verify_videos.py     # 旁白 vs 腳本、QA、總長 → out/VERIFY_REPORT.md
-python asr_check.py 6       # 回聽第 6 支 → out/ASR_REPORT.md
+python asr_check.py 6       # 回聽第 6 支 → out/ASR_REPORT.md（會蓋掉整份報告）
+python compile.py           # 完整版：腳本 → lectures，並檢查講義涵蓋（缺 0 才 exit 0）
 ```
 </content>
 </invoke>
